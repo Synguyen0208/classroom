@@ -7,9 +7,9 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import swal from "sweetalert";
 import { useParams } from 'react-router-dom';
 import EmailIcon from '@material-ui/icons/Email';
-import { Popover } from '@material-ui/core';
 import ClassroomContext from './ClassroomContext';
 import Row from 'reactstrap/lib/Row';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
@@ -19,6 +19,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import MemberService from '../APIService/MemberService';
+import getUser from '../APIService/GetUser';
+import ClearIcon from '@material-ui/icons/Clear';
+import PopoverAction from './Popover';
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -26,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function Member(props) {
+  const user = getUser();
   const classes = useStyles();
   const [form, setForm] = useState({
     email: null,
@@ -62,25 +66,46 @@ export default function Member(props) {
     };
     handleOpenBackdrop();
     handleCloseDialog();
-    await MemberService.inviteMember(idClass, formData);
+    try{
+      const response=await MemberService.inviteMember(idClass, formData);
+      swal("Good job!", response.data.message, "success");
+    }
+    catch(error)
+    {
+      swal("Execution failed!", 'Please check email!', "error");
+    }
+    
     handleCloseBackdrop();
   };
-  const [anchorEl, setAnchorEl] = useState(null);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const [popover, setPopover]= useState({
+    popoverBody:null,
+    popoverOpen:null
+  });
+  const handleClick = (event, body) => {
+    setPopover({
+      popoverBody:body,
+      popoverOpen:event.currentTarget
+    })
   };
-
-  const handleClose = () => {
-    setAnchorEl(null);
+  const {popoverBody, popoverOpen}=popover;
+  const handleRemoveMember = async (memberEmail) => {
+    handleOpenBackdrop();
+    handleCloseDialog();
+    await MemberService.removeMember(idClass, memberEmail);
+    window.location.reload();
+    handleCloseBackdrop();
+  }
+  const handleClosePopover = () => {
+    setPopover({
+      popoverOpenL:null
+    })
   };
-  const openPopover = Boolean(anchorEl);
-  const idPopover = open ? 'simple-popover' : undefined;
   const { idClass } = useParams();
   return (
     <div className="contain">
       <ClassroomContext.Consumer>
         {(data) => {
-          const { ownerName, ownerAvatar, userJoined } = data;
+          const { ownerName, ownerId, ownerAvatar, userJoined } = data;
           return (
             <div>
               <Typography variant="h4" component="h4" className="m-t">
@@ -107,12 +132,17 @@ export default function Member(props) {
                 <Typography variant="h4" component="h4" className="m-t">
                   Classmates
                 </Typography>
-                <button
-                  className={`btn-add-member left`}
-                  onClick={handleClickOpen}
-                >
-                  <PersonAddIcon className="i-a-m" />
-                </button>
+                {
+                  ownerId == user.id
+                  &&
+                  <button
+                    className={`btn-add-member left`}
+                    onClick={handleClickOpen}
+                  >
+                    <PersonAddIcon className="i-a-m" />
+                  </button>
+                }
+
               </Row>
               <hr className="hr-mt" />
               {userJoined &&
@@ -129,23 +159,11 @@ export default function Member(props) {
                       }
                       action={
                         <div>
-                          <EmailIcon onClick={handleClick} />
-                          <Popover
-                            id={idPopover}
-                            open={openPopover}
-                            anchorEl={anchorEl}
-                            onClose={handleClose}
-                            anchorOrigin={{
-                              vertical: 'bottom',
-                              horizontal: 'center',
-                            }}
-                            transformOrigin={{
-                              vertical: 'top',
-                              horizontal: 'center',
-                            }}
-                          >
-                            <Typography className="p-15">{email}</Typography>
-                          </Popover>
+                          <EmailIcon onClick={(event)=>handleClick(event, <Typography className="p-15">{email}</Typography>)} />
+                          {ownerId == user.id
+                            &&
+                            <ClearIcon className="action-clear" onClick={() => handleRemoveMember(email)} />
+                          }
                         </div>
                       }
                       title={
@@ -156,10 +174,10 @@ export default function Member(props) {
                     />
                   );
                 })}
-
+              <PopoverAction body={popoverBody} open={popoverOpen} close={handleClosePopover}/>
               <Dialog
                 open={open}
-                onClose={handleClose}
+                onClose={handleCloseDialog}
                 aria-labelledby="form-dialog-title"
               >
                 <DialogTitle id="form-dialog-title">Invite member</DialogTitle>

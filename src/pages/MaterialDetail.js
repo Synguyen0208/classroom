@@ -18,7 +18,7 @@ import { Backdrop, CircularProgress, OutlinedInput, Popover } from '@material-ui
 import SendIcon from '@material-ui/icons/Send';
 import ModalAction from '../components/Modal';
 import Row from 'reactstrap/lib/Row';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import MaterialService from '../APIService/MaterialService';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
         color: '#fff',
     }
 }));
-function MaterialDetail(props) {
+function MaterialDetail() {
     const classes = useStyles();
     const [sendButton, setAction] = useState(true)
     const [comment, setComment] = useState("");

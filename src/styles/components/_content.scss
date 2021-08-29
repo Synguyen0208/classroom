@@ -605,3 +605,19 @@ height: 0.2rem !important;
 .slide.animateIn, .slide.animateOut {
   transition: all 0.5s ease !important;
 }
+@media screen and (max-width: 761px) {
+  .btn-add{
+    float: none;
+    margin-top: 0px;
+    margin-bottom: 1rem;
+  }
+}
+.action-clear{
+  margin-left: 1rem;
+}
+.pr-2{
+  margin-left: auto;
+  margin-right: auto;
+  width: 5rem;
+  height: 4rem;
+}

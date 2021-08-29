@@ -45,7 +45,7 @@ function CardCreate(props) {
             </DropdownMenu>
           </Dropdown>
         </div>
-        <Link to={`/0/classroom/${id}`}>
+        <Link to={`/0/classroom/${id}/stream`}>
           <div className="card-body">
             <h4 className="card-title mt-0 ">{className}</h4>
             <h5 className="topic">{topic}</h5>

@@ -348,7 +348,7 @@ export default function Stream() {
                 <p className="amt__txt">
                   <div dangerouslySetInnerHTML={{ __html: content }} />
                 </p>
-                {fileAttachment.length && (
+                {fileAttachment.length>0 && (
                   <a onClick={() => handleReadFile(fileAttachment[0])}>
                     <Card className="card-m-d">
                       <Row>

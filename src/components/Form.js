@@ -98,14 +98,14 @@ function FormAction(props){
                                 </FormGroup>
                             )
                         }
-                        // if(type == 'textarea'){
-                        //     return(
-                        //         <FormGroup>
-                        //             <Label for={fill}>{fill.toUpperCase()}</Label>
-                        //             <Ckeditor data={value} change={handleChangeCkeditor} fill={fill}/>
-                        //         </FormGroup>
-                        //     )
-                        // }
+                        if(type == 'textarea'){
+                            return(
+                                <FormGroup>
+                                    <Label for={fill}>{fill.toUpperCase()}</Label>
+                                    <Ckeditor data={value} change={handleChangeCkeditor} fill={fill}/>
+                                </FormGroup>
+                            )
+                        }
                         else {
                             return (
                                 <FormGroup>

@@ -41,7 +41,7 @@ class Sidebar extends React.Component {
         <div className={bem.e("content")}>
           <Navbar>
             <img
-              src={logo200Image}
+              src='https://www.pngkit.com/png/full/273-2730089_knowledge-base-and-community-discussion-forum-icon-png.png'
               width="40"
               height="30"
               className="pr-2"

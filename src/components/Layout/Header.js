@@ -28,19 +28,6 @@ import {
 import bn from 'utils/bemnames';
 const bem = bn.create('header');
 
-const MdNotificationsActiveWithBadge = withBadge({
-  size: 'md',
-  color: 'primary',
-  style: {
-    top: -10,
-    right: -10,
-    display: 'inline-flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  children: <small>5</small>,
-})(MdNotificationsActive);
-
 function Header() {
   const history = useHistory();
   const [notificationsData, setNotificationData] = useState([]);
@@ -69,7 +56,18 @@ function Header() {
   const toggleUserCardPopover = () => {
     setOpenUserCardPopover(!isOpenUserCardPopover);
   };
-
+  const MdNotificationsActiveWithBadge = withBadge({
+    size: 'md',
+    color: 'primary',
+    style: {
+      top: -10,
+      right: -10,
+      display: 'inline-flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    children: <small>{notificationsData.length}</small>,
+  })(MdNotificationsActive);
   const handleSidebarControlButton = (event) => {
     event.preventDefault();
     event.stopPropagation();

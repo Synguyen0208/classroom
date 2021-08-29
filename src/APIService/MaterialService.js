@@ -6,7 +6,9 @@ const handleCreateForm = (data) => {
     let form = new FormData();
     form.append('title', title);
     form.append('content', content);
-    form.append('fileAttachment', fileAttachment);
+    if(fileAttachment){
+        form.append('fileAttachment', fileAttachment);
+    }
     form.append('ownerId', user.id);
     form.append('ownerName', user.name)
     return form;
@@ -22,7 +24,12 @@ const postMaterial = (idClass, data) => {
     return CallAPI(`classrooms/${idClass}/materials`, 'post', handleCreateForm(data));
 }
 const putMaterial = (idClass, idMaterial, data) => {
-    return CallAPI(`classrooms/${idClass}/materials/${idMaterial}`, 'put', handleCreateForm(data));
+    const {fileAttachment}=data;
+    let dataForm=data;
+    if(fileAttachment){
+        dataForm=handleCreateForm(data);
+    }
+    return CallAPI(`classrooms/${idClass}/materials/${idMaterial}`, 'put', dataForm);
 }
 const getMaterial = (idClass) => {
     return CallAPI(`classrooms/${idClass}/materials`);
