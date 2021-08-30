@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Form } from 'reactstrap';
-import { GoogleLogin } from 'react-google-login';
-import LoginAPI from '../APIService/LoginAPI';
-import { useHistory } from 'react-router-dom';
-import BackdropEffect from './Backdrop';
-import cookie from 'react-cookies';
-import { CLIENT_ID } from './constants';
+import React, { useState } from "react";
+import { Form } from "reactstrap";
+import { GoogleLogin } from "react-google-login";
+import LoginAPI from "../APIService/LoginAPI";
+import { useHistory } from "react-router-dom";
+import BackdropEffect from "./Backdrop";
+import cookie from "react-cookies";
+import { CLIENT_ID } from "./constants";
 function AuthForm(props) {
   const [action, setAction] = useState(false);
   const history = useHistory();
@@ -23,10 +23,10 @@ function AuthForm(props) {
     };
     setBackdrop(true);
     const loginResponse = await LoginAPI.loginGoogle(data);
-    if (loginResponse.statusText === 'OK') {
+    if (loginResponse.statusText === "OK") {
       setBackdrop(false);
-      cookie.save('user', loginResponse, { path: '/' });
-      history.push('/');
+      cookie.save("user", loginResponse, { path: "/" });
+      history.push("/");
     }
   };
   return (
@@ -47,7 +47,7 @@ function AuthForm(props) {
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
+            cookiePolicy={"single_host_origin"}
           />
         </div>
       </div>

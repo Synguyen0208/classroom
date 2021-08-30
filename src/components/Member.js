@@ -146,10 +146,11 @@ export default function Member(props) {
               </Row>
               <hr className="hr-mt" />
               {userJoined &&
-                userJoined.map((e) => {
+                userJoined.map((e, key) => {
                   const { name, email, avatar } = e;
                   return (
                     <CardHeader
+                      key={key}
                       avatar={
                         <Avatar
                           aria-label="recipe"

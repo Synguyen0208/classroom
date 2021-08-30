@@ -1,23 +1,23 @@
-import React from 'react';
-import CallAPINonePrefix from '../APIService/CallApiNonePrefix';
-import { MAXIMUM_NOTIFICATION_DISPLAY } from './constants';
-import { DateTime } from './DateTime';
-import '../styles/components/_notification.css';
-import swal from 'sweetalert';
+import React from "react";
+import CallAPINonePrefix from "../APIService/CallApiNonePrefix";
+import { MAXIMUM_NOTIFICATION_DISPLAY } from "./constants";
+import { DateTime } from "./DateTime";
+import "../styles/components/_notification.css";
+import swal from "sweetalert";
 
 const Notifications = ({ notificationsData }) => {
   const callLink = async (link) => {
     try {
       const respone = await CallAPINonePrefix(link);
-      swal('Good job!', `${respone.data.message}`, 'success');
+      swal("Good job!", `${respone.data.message}`, "success");
     } catch (error) {
-      swal('Execution failed!', 'Try again!', 'error');
+      swal("Execution failed!", "Try again!", "error");
     }
   };
   return (
     notificationsData &&
     notificationsData.map(({ id, link, message, createdAt }, index) => {
-      if (index > MAXIMUM_NOTIFICATION_DISPLAY) return '';
+      if (index > MAXIMUM_NOTIFICATION_DISPLAY) return "";
       return (
         <div key={id}>
           <div>

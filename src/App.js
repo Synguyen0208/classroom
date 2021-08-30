@@ -1,28 +1,36 @@
-import { MainLayout } from 'components/Layout';
-import PageSpinner from 'components/PageSpinner';
-import React from 'react';
-import componentQueries from 'react-component-queries';
-import LoginPage from './pages/LoginPage';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import './styles/reduction.scss';
-const DashboardPage = React.lazy(() => import('pages/DashboardPage'));
-const ClassRoomPage = React.lazy(() => import('pages/ClassRoom'));
-const MaterialDetail = React.lazy(() => import('pages/MaterialDetail'));
-const FlashCardPage = React.lazy(() => import('pages/FlashCardPage'));
+import { MainLayout } from "components/Layout";
+import PageSpinner from "components/PageSpinner";
+import React, { useState } from "react";
+import componentQueries from "react-component-queries";
+import LoginPage from "./pages/LoginPage";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "./styles/reduction.scss";
+const DashboardPage = React.lazy(() => import("pages/DashboardPage"));
+const ClassRoomPage = React.lazy(() => import("pages/ClassRoom"));
+const MaterialDetail = React.lazy(() => import("pages/MaterialDetail"));
+const FlashCardPage = React.lazy(() => import("pages/FlashCardPage"));
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split("/").pop()}`;
 };
-function App(props) {
+
+function App() {
+  const [searchClass, setSearchClass] = useState([]);
   return (
     <BrowserRouter basename={getBasename()}>
       <Switch>
-        <Route path='/login'>
+        <Route path="/login">
           <LoginPage />
         </Route>
-        <MainLayout breakpoint={props.breakpoint}>
+        <MainLayout setSearchClass={setSearchClass}>
           <React.Suspense fallback={<PageSpinner />}>
-            <Route exact path="/" component={DashboardPage} />
-            <Route exact path="/:idClass/material/:id/detail" component={MaterialDetail} />
+            <Route exact path="/" component={DashboardPage}>
+              <DashboardPage searchClass={searchClass}></DashboardPage>
+            </Route>
+            <Route
+              exact
+              path="/:idClass/material/:id/detail"
+              component={MaterialDetail}
+            />
             <Route path="/:tab/classroom/:id/">
               <ClassRoomPage />
             </Route>

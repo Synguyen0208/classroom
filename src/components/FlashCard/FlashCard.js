@@ -141,9 +141,9 @@ function FlashCard(props) {
       <Col md={12}>
         <Row>
           {data &&
-            data.map((e) => {
+            data.map((e, key) => {
               return (
-                <Col lg={3} md={6} sm={12}>
+                <Col lg={3} md={6} sm={12} key={key}>
                   <CardFlashcard
                     createAction={createAction}
                     handleConfirmDeleteFlashcard={handleConfirmDeleteFlashcard}

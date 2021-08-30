@@ -1,19 +1,19 @@
-import ModalCreate from '../Classroom/ModalClass';
-import Avatar from 'components/Avatar';
-import { UserCard } from 'components/Card';
-import Notifications from 'components/Notifications';
-import SearchInput from 'components/SearchInput';
-import withBadge from 'hocs/withBadge';
-import { getNotificationData } from '../../APIService/NotificationService';
-import React, { useState, useEffect } from 'react';
-import cookie from 'react-cookies';
+import ModalCreate from "../Classroom/ModalClass";
+import Avatar from "components/Avatar";
+import { UserCard } from "components/Card";
+import Notifications from "components/Notifications";
+import SearchInput from "components/SearchInput";
+import withBadge from "hocs/withBadge";
+import { getNotificationData } from "../../APIService/NotificationService";
+import React, { useState, useEffect } from "react";
+import cookie from "react-cookies";
 import {
   MdClearAll,
   MdExitToApp,
   MdNotificationsActive,
   MdNotificationsNone,
-} from 'react-icons/md';
-import { useHistory } from 'react-router-dom';
+} from "react-icons/md";
+import { useHistory } from "react-router-dom";
 import {
   Button,
   ListGroup,
@@ -24,11 +24,25 @@ import {
   NavLink,
   Popover,
   PopoverBody,
-} from 'reactstrap';
-import bn from 'utils/bemnames';
-const bem = bn.create('header');
+} from "reactstrap";
+import bn from "utils/bemnames";
+const bem = bn.create("header");
 
-function Header() {
+const MdNotificationsActiveWithBadge = withBadge({
+  size: "md",
+  color: "primary",
+  style: {
+    top: -10,
+    right: -10,
+    display: "inline-flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  children: <small>5</small>,
+})(MdNotificationsActive);
+
+function Header(props) {
+  const { setCallSearch, setSearchClass } = props;
   const history = useHistory();
   const [notificationsData, setNotificationData] = useState([]);
   const [isOpenNotificationPopover, setOpenNotificationPopover] =
@@ -71,11 +85,11 @@ function Header() {
   const handleSidebarControlButton = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    document.querySelector('.cr-sidebar').classList.toggle('cr-sidebar--open');
+    document.querySelector(".cr-sidebar").classList.toggle("cr-sidebar--open");
   };
 
   const load = () => {
-    const userLoad = cookie.load('user');
+    const userLoad = cookie.load("user");
     if (userLoad) {
       setUser(userLoad.data);
     } else {
@@ -87,21 +101,24 @@ function Header() {
     setInterval(logout, 7000000);
   }, []);
   const logout = async () => {
-    await cookie.remove('user', { path: '/' });
-    history.push('/login');
+    await cookie.remove("user", { path: "/" });
+    history.push("/login");
   };
   const { email, avatar, name: userName } = user;
   return (
-    <Navbar light expand className={bem.b('bg-white')}>
+    <Navbar light expand className={bem.b("bg-white")}>
       <Nav navbar className="mr-2">
         <Button outline onClick={handleSidebarControlButton}>
           <MdClearAll size={25} />
         </Button>
       </Nav>
       <Nav navbar>
-        <SearchInput />
+        <SearchInput
+          setCallSearch={setCallSearch}
+          setSearchClass={setSearchClass}
+        />
       </Nav>
-      <Nav navbar className={bem.e('nav-right')}>
+      <Nav navbar className={bem.e("nav-right")}>
         <NavItem id="class-button" className="d-inline-flex">
           <NavLink className="position-relative">
             <ModalCreate />

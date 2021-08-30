@@ -141,13 +141,14 @@ export default function Material(props) {
       <br />
       <br />
       {data &&
-        data.map((e) => {
+        data.map((e, key) => {
           return (
             <CardMaterial
               delete={handleDeleteMaterial}
               update={createAction}
               idClass={idClass}
               data={e}
+              key={key}
             />
           );
         })}

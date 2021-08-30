@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import Page from 'components/Page';
-import CardCreate from '../components/Card/CardCreate';
-import CardJoin from '../components/Card/CardJoin';
-import { Col, Row, Spinner } from 'reactstrap';
-import { getClass, deleteAPI, unsubAPI } from '../services/ServiceClass';
-import swal from 'sweetalert';
-import { Typography } from '@material-ui/core';
+import React, { Component } from "react";
+import Page from "components/Page";
+import CardCreate from "../components/Card/CardCreate";
+import CardSearch from "../components/Card/CardSearch";
+import CardJoin from "../components/Card/CardJoin";
+import { Col, Row, Spinner } from "reactstrap";
+import { getClass, deleteAPI, unsubAPI } from "../APIService/ServiceClass";
+import swal from "sweetalert";
+import { Typography } from "@material-ui/core";
 
 class HomePage extends Component {
   constructor(props) {
@@ -15,9 +16,8 @@ class HomePage extends Component {
       joinClass: [],
     };
   }
-
   async componentDidMount() {
-    const { own, join } = await getClass('classrooms');
+    const { own, join } = await getClass("classrooms");
     this.setState({
       ownerClass: own,
       joinClass: join,
@@ -28,9 +28,9 @@ class HomePage extends Component {
     const ownerClass = this.state.ownerClass;
     const matchedClass = ownerClass.find((item) => item.id === idCard);
     swal({
-      title: 'Are you sure?',
-      text: 'The classroom will delete!',
-      icon: 'warning',
+      title: "Are you sure?",
+      text: "The classroom will delete!",
+      icon: "warning",
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
@@ -39,8 +39,8 @@ class HomePage extends Component {
         this.setState({
           ownerClass: ownerClass.filter((item) => item.id !== idCard),
         });
-        swal('The classroom has been deleted!', {
-          icon: 'success',
+        swal("The classroom has been deleted!", {
+          icon: "success",
         });
       }
     });
@@ -49,9 +49,9 @@ class HomePage extends Component {
     const joinClass = this.state.joinClass;
     const matchedClass = joinClass.find((item) => item.id === idCard);
     swal({
-      title: 'Are you sure?',
-      text: 'Leave the classroom!',
-      icon: 'warning',
+      title: "Are you sure?",
+      text: "Leave the classroom!",
+      icon: "warning",
       buttons: true,
       dangerMode: true,
     }).then((leave) => {
@@ -60,8 +60,8 @@ class HomePage extends Component {
         this.setState({
           joinClass: joinClass.filter((item) => item.id !== idCard),
         });
-        swal('You have left the classroom!', {
-          icon: 'success',
+        swal("You have left the classroom!", {
+          icon: "success",
         });
       }
     });
@@ -69,12 +69,33 @@ class HomePage extends Component {
 
   render() {
     const { ownerClass, joinClass } = this.state;
+    const { searchClass: searchList } = this.props;
+
+    if (searchList.length > 0)
+      return (
+        <Page
+          className="classroom"
+          title="CLASSROOM"
+          breadcrumbs={[{ name: "", active: true }]}
+        >
+          <Typography variant="h4" component="h4" className="t-c">
+            Results
+          </Typography>
+          <Row>
+            {searchList.map((item) => (
+              <Col lg={3} md={6} sm={6} xs={12}>
+                <CardSearch classroom={item} />
+              </Col>
+            ))}
+          </Row>
+        </Page>
+      );
     if (joinClass.length || ownerClass.length)
       return (
         <Page
           className="classroom"
           title="CLASSROOM"
-          breadcrumbs={[{ name: '', active: true }]}
+          breadcrumbs={[{ name: "", active: true }]}
         >
           <Typography variant="h4" component="h4" className="t-c">
             Your Class
@@ -110,7 +131,7 @@ class HomePage extends Component {
       );
     return (
       <div className="sprinner-load">
-        <Spinner color={'success'} />
+        <Spinner color={"success"} />
       </div>
     );
   }

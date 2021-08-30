@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-} from 'reactstrap';
-import '../../styles/components/_home.scss';
-import { Link } from 'react-router-dom';
-import { DateTime } from '../DateTime';
+} from "reactstrap";
+import "../../styles/components/_home.scss";
+import { Link } from "react-router-dom";
+import { DateTime } from "../DateTime";
 function CardJoin(props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
@@ -28,7 +28,7 @@ function CardJoin(props) {
       className="card text-white card-has-bg click-col"
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
+        backgroundSize: "cover",
       }}
     >
       <div className="card-img-overlay d-flex flex-column">

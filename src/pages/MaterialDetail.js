@@ -219,9 +219,9 @@ function MaterialDetail() {
                                                 {
                                                     listComment
                                                     &&
-                                                    listComment.map(e => {
+                                                    listComment.map((e, key) => {
                                                         return (
-                                                            <CardComment deleteComment={()=>handleDeleteComment(e.id)} data={e} />
+                                                            <CardComment key={key} deleteComment={()=>handleDeleteComment(e.id)} data={e} />
                                                         )
                                                     })
                                                 }

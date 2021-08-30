@@ -1,48 +1,48 @@
-import React, { useState } from 'react';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import { Link } from 'react-router-dom';
-import { Popover } from '@material-ui/core';
-import { Button } from 'reactstrap';
-import { makeStyles } from '@material-ui/core/styles';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import dateFormat from 'dateformat';
-import getUser from '../../APIService/GetUser';
+import React, { useState } from "react";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Collapse from "@material-ui/core/Collapse";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import AssignmentIcon from "@material-ui/icons/Assignment";
+import { Link } from "react-router-dom";
+import { Popover } from "@material-ui/core";
+import { Button } from "reactstrap";
+import { makeStyles } from "@material-ui/core/styles";
+import CopyToClipboard from "react-copy-to-clipboard";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
+import dateFormat from "dateformat";
+import getUser from "../../APIService/GetUser";
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: '100%',
+    maxWidth: "100%",
   },
   drop_button: {
-    marginTop: '-3.8rem',
-    float: 'right',
-    marginRight: '2px',
+    marginTop: "-3.8rem",
+    float: "right",
+    marginRight: "2px",
   },
   detail: {
-    color: '#007b83',
-    textDecoration: 'none !important',
+    color: "#007b83",
+    textDecoration: "none !important",
   },
   expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
+    transform: "rotate(180deg)",
   },
   avatar: {
-    backgroundColor: '#129eaf',
+    backgroundColor: "#129eaf",
   },
 }));
 function CardMaterial(props) {
@@ -55,7 +55,7 @@ function CardMaterial(props) {
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
-  const idPopover = open ? 'simple-popover' : undefined;
+  const idPopover = open ? "simple-popover" : undefined;
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -74,7 +74,7 @@ function CardMaterial(props) {
   };
   const updateMaterial = () => {
     handleClose();
-    update('update', null, data);
+    update("update", null, data);
   };
   const {
     update,
@@ -85,7 +85,7 @@ function CardMaterial(props) {
   return (
     <Card className={classes.root}>
       <CardHeader
-        className={'card-header ' + expanded}
+        className={"card-header " + expanded}
         onClick={handleExpandClick}
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -93,7 +93,7 @@ function CardMaterial(props) {
           </Avatar>
         }
         title={title}
-        subheader={dateFormat(createdAt, 'dd/mm/yyyy')}
+        subheader={dateFormat(createdAt, "dd/mm/yyyy")}
       />
       <IconButton className={classes.drop_button} aria-label="settings">
         <Popover
@@ -102,12 +102,12 @@ function CardMaterial(props) {
           anchorEl={anchorEl}
           onClose={handleClose}
           anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
+            vertical: "bottom",
+            horizontal: "center",
           }}
           transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
+            vertical: "top",
+            horizontal: "center",
           }}
         >
           <CopyToClipboard
@@ -139,8 +139,8 @@ function CardMaterial(props) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <Link to={'/' + idClass + '/material/' + id + '/detail'}>
-            <Button color="link" className={classes.detail + ' btn-detail'}>
+          <Link to={"/" + idClass + "/material/" + id + "/detail"}>
+            <Button color="link" className={classes.detail + " btn-detail"}>
               View material
             </Button>
           </Link>

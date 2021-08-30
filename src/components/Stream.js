@@ -1,57 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import FormAction from './Form';
-import { IconButton, Typography, CardContent, Card } from '@material-ui/core';
-import CreateIcon from '@material-ui/icons/Create';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ModalAction from './Modal';
-import StreamService from '../APIService/StreamService';
-import { Backdrop, Box, Button, CircularProgress } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { useParams } from 'react-router-dom';
-import { Avatar } from '@material-ui/core';
-import Row from 'reactstrap/lib/Row';
-import Ckeditor from './Ckeditor';
-import clsx from 'clsx';
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import FormControl from '@material-ui/core/FormControl';
-import { OutlinedInput } from '@material-ui/core';
-import SendIcon from '@material-ui/icons/Send';
-import CardComment from '../components/Card/CardComment';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import { FormGroup, Input, Label } from 'reactstrap';
-import Col from 'reactstrap/lib/Col';
-import getUser from '../APIService/GetUser';
-import { ACTIONS } from './constants';
+import React, { useState, useEffect } from "react";
+import FormAction from "./Form";
+import { IconButton, Typography, CardContent, Card } from "@material-ui/core";
+import CreateIcon from "@material-ui/icons/Create";
+import DeleteIcon from "@material-ui/icons/Delete";
+import ModalAction from "./Modal";
+import StreamService from "../APIService/StreamService";
+import { Backdrop, Box, Button, CircularProgress } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { useParams } from "react-router-dom";
+import { Avatar } from "@material-ui/core";
+import Row from "reactstrap/lib/Row";
+import Ckeditor from "./Ckeditor";
+import clsx from "clsx";
+import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import FormControl from "@material-ui/core/FormControl";
+import { OutlinedInput } from "@material-ui/core";
+import SendIcon from "@material-ui/icons/Send";
+import CardComment from "../components/Card/CardComment";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
+import { FormGroup, Input, Label } from "reactstrap";
+import Col from "reactstrap/lib/Col";
+import getUser from "../APIService/GetUser";
+import { ACTIONS } from "./constants";
 const useStyles = makeStyles((theme) => ({
   root: {
-    boxShadow: 'none',
-    width: '100%',
-    backgroundColor: 'transparent',
+    boxShadow: "none",
+    width: "100%",
+    backgroundColor: "transparent",
   },
   avatar: {
-    backgroundColor: '#129eaf',
-    width: '3rem',
-    height: '3rem',
-    marginTop: '-0.5rem',
+    backgroundColor: "#129eaf",
+    width: "3rem",
+    height: "3rem",
+    marginTop: "-0.5rem",
   },
   margin: {
-    width: '100%',
+    width: "100%",
   },
   detail: {
-    color: 'gray',
-    textDecoration: 'none !important',
+    color: "gray",
+    textDecoration: "none !important",
   },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
-    color: '#fff',
+    color: "#fff",
   },
 }));
 export default function Stream() {
   const { avatar, id: userId } = getUser();
   const [showInput, setShowInput] = useState(false);
   const [sendButton, setAction] = useState(true);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const [idAnnouncementDelete, setIdAnnouncementDelete] = useState(null);
   const handleCloseDialog = () => {
@@ -94,7 +94,7 @@ export default function Stream() {
     const {
       target: { name, value },
     } = e;
-    if (value && name === 'content') {
+    if (value && name === "content") {
       setSubmit(false);
     }
     setDataForm({
@@ -114,7 +114,7 @@ export default function Stream() {
     };
     handleOpenBackdrop();
     await StreamService.postComment(idClass, postId, data);
-    setComment('');
+    setComment("");
     success();
   };
   const handleDeleteComment = async (commentId, postId) => {
@@ -133,7 +133,7 @@ export default function Stream() {
     const {
       target: { files },
     } = e;
-    const name = 'fileAttachment';
+    const name = "fileAttachment";
     setDataForm({
       ...dataForm,
       [name]: files[0],
@@ -171,7 +171,7 @@ export default function Stream() {
               submit={handleUpdate}
             ></FormAction>
           ),
-          title: 'Update announcement',
+          title: "Update announcement",
           open: true,
         });
         break;
@@ -183,18 +183,18 @@ export default function Stream() {
     const { title, content, fileAttachment } = data;
     const structure = [
       {
-        fill: 'title',
-        type: 'text',
+        fill: "title",
+        type: "text",
         value: title,
       },
       {
-        fill: 'content',
-        type: 'textarea',
+        fill: "content",
+        type: "textarea",
         value: content,
       },
       {
-        fill: 'fileAttachment',
-        type: 'file',
+        fill: "fileAttachment",
+        type: "file",
         value: fileAttachment,
       },
     ];
@@ -214,7 +214,7 @@ export default function Stream() {
     handleOpenBackdrop();
     const response = await StreamService.putQuestion(idClass, data.id, data);
     fetchData();
-    if (response.statusText == 'OK') {
+    if (response.statusText == "OK") {
       handleCloseModal();
       handleCloseBackdrop();
     }
@@ -309,7 +309,7 @@ export default function Stream() {
             comments,
           } = e;
           return (
-            <div className="amt">
+            <div className="amt" key={id}> 
               <div className="amt__Cnt">
                 <div className="amt__top">
                   <Avatar src={ownerAvatar} />
@@ -333,7 +333,7 @@ export default function Stream() {
                       </IconButton>
                       <IconButton
                         aria-label="settings"
-                        onClick={() => createAction('update', e)}
+                        onClick={() => createAction("update", e)}
                       >
                         <CreateIcon />
                       </IconButton>
@@ -400,7 +400,7 @@ export default function Stream() {
                             }
                             aria-describedby="outlined-weight-helper-text"
                             inputProps={{
-                              'aria-label': 'weight',
+                              "aria-label": "weight",
                             }}
                             labelWidth={0}
                           />

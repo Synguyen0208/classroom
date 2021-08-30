@@ -16,6 +16,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import BackdropEffect from '../Backdrop';
 import { ACTIONS } from '../constants';
+import Links from './Links';
 const useStyles = makeStyles({
   root: {
     backgroundColor: '#296068 !important',
@@ -156,7 +157,7 @@ function LessonFlashCard(props) {
           data.map((e) => {
             const { name, star, id, flashCards } = e;
             return (
-              <Col md={6} sm={12} className="fl-col">
+              <Col md={6} sm={12} className="fl-col" key={id}>
                 <Card className="fl-card fl-l">
                   <CardHeader
                     avatar={
@@ -185,7 +186,7 @@ function LessonFlashCard(props) {
                     }
                     title={
                       <Link
-                        to={`/flashcard/${clas}/lesson/${id}/card`}
+                        to={Links.FlashcardLink(id, clas)}
                         className="link"
                       >
                         <b>{name}</b>

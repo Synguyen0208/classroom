@@ -21,6 +21,7 @@ import Backdrop from '../Backdrop';
 import { Popover } from '@material-ui/core';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { ACTIONS } from '../constants';
+import Links from './Links';
 function ClassFlashCard(props) {
   const [data, setData] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -172,15 +173,16 @@ function ClassFlashCard(props) {
       >
         + Add class
       </Button>
+      
       <Row>
         {data &&
-          data.map((e, key) => {
+          data.map((e) => {
             const { id, name, userName, color, backgroundImage, star } = e;
             return (
-              <Col lg={4} md={6} sm={12} className="fl-col">
+              <Col lg={4} md={6} sm={12} className="fl-col" key={id}>
                 <Card className="fl-card">
                   <CardActionArea>
-                    <Link to={`/flashcard/${id}/lesson`} className="link">
+                    <Link to={Links.LessonLink(id)} className="link">
                       <CardContent
                         className="fl-cl-cr-ct"
                         style={{

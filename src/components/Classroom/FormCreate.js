@@ -1,6 +1,6 @@
 import { Form, FormGroup, FormText, Input, Label, Button } from "reactstrap";
 import React, { useEffect, useState } from "react";
-import CallApi from "services/CallAPI";
+import CallApi from "../../APIService/CallApi";
 import swal from "sweetalert";
 
 function FormCreate(props) {

@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
   Button,
-} from 'reactstrap';
-import '../../styles/components/_home.scss';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import { Link } from 'react-router-dom';
-import ModalEdit from '../Classroom/ModalEditClass';
-import { DateTime } from '../DateTime';
+} from "reactstrap";
+import "../../styles/components/_home.scss";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { Link } from "react-router-dom";
+import ModalEdit from "../Classroom/ModalEditClass";
+import { DateTime } from "../DateTime";
 function CardCreate(props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
@@ -24,7 +24,7 @@ function CardCreate(props) {
       className="card text-white card-has-bg click-col"
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
+        backgroundSize: "cover",
       }}
     >
       <div className="card-img-overlay d-flex flex-column">

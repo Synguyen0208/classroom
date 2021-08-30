@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import FormCreate from "./FormCreate";
-import CallApi from "../../services/CallAPI";
+import CallApi from "../../APIService/CallApi";
 import "../../styles/components/_modal.scss";
 
 function ModalEditClass(props) {
